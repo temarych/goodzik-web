@@ -86,6 +86,7 @@ Then follow Commitizen instructions after creating a new commit with the followi
 cz
 ```
 
+
 ### Precommit hooks
 
 Please, note that precommit hooks are in place to maintain code quality standards. Before each commit, your code is processed by Prettier and ESLint according to project configurations

@@ -10,6 +10,8 @@ import { AuthLayout } from '@modules/auth/components/AuthLayout';
 import NewGuideForm from '@modules/home/components/MainSection/NewGuideForm';
 import { useAppSelector } from './store';
 import { createTheme } from './theme';
+import { TeamPage } from '@modules/team';
+import { PartnersPage } from '@modules/partners';
 
 export const App = () => {
   const mode = useAppSelector(selectMode);
@@ -29,8 +31,8 @@ export const App = () => {
           <Route element={<AuthGuard />}>
             <Route element={<MainLayout />}>
               <Route path={routes.newGuide()} element={<NewGuideForm />} />
-              <Route path={routes.manageCommand()} element={<NewGuideForm />} />
-              <Route path={routes.managePartner()} element={<NewGuideForm />} />
+              <Route path={routes.manageCommand()} element={<TeamPage />} />
+              <Route path={routes.managePartner()} element={<PartnersPage />} />
             </Route>
           </Route>
         </Routes>

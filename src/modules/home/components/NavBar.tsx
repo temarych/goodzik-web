@@ -1,26 +1,42 @@
-import { Navbar, NavbarContent, NavbarItem, Link } from '@nextui-org/react';
-
-//! make selection of selected item in navbar
+import { Navbar, NavbarContent, NavbarItem } from '@nextui-org/react';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const NavBar = () => {
+  const location = useLocation();
+
   return (
     <div>
       <Navbar>
-        <NavbarContent className="hidden sm:flex gap-4" justify="center">
-          <NavbarItem isActive>
-            <Link color="foreground" href="/">
+        <NavbarContent className="hidden sm:flex flex-col items-start gap-4">
+          <NavbarItem isActive={location.pathname === '/'}>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? 'text-primary' : 'text-foreground'
+              }
+            >
               Додати новий гайд
-            </Link>
+            </NavLink>
           </NavbarItem>
-          <NavbarItem>
-            <Link href="/command" color="foreground">
+          <NavbarItem isActive={location.pathname === '/command'}>
+            <NavLink
+              to="/command"
+              className={({ isActive }) =>
+                isActive ? 'text-primary' : 'text-foreground'
+              }
+            >
               Керування командою
-            </Link>
+            </NavLink>
           </NavbarItem>
-          <NavbarItem>
-            <Link href="/partner" color="foreground">
+          <NavbarItem isActive={location.pathname === '/partner'}>
+            <NavLink
+              to="/partner"
+              className={({ isActive }) =>
+                isActive ? 'text-primary' : 'text-foreground'
+              }
+            >
               Керування партнерами
-            </Link>
+            </NavLink>
           </NavbarItem>
         </NavbarContent>
       </Navbar>

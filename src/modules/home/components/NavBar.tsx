@@ -38,6 +38,26 @@ const NavBar = () => {
               Керування партнерами
             </NavLink>
           </NavbarItem>
+          <NavbarItem isActive={location.pathname === '/location'}>
+            <NavLink
+              to="/location"
+              className={({ isActive }) =>
+                isActive ? 'text-primary' : 'text-foreground'
+              }
+            >
+              Керування локаціями
+            </NavLink>
+          </NavbarItem>
+          <NavbarItem isActive={location.pathname === '/delete_guide'}>
+            <NavLink
+              to="/delete_guide"
+              className={({ isActive }) =>
+                isActive ? 'text-primary' : 'text-foreground'
+              }
+            >
+              Видалення гайдів
+            </NavLink>
+          </NavbarItem>
         </NavbarContent>
       </Navbar>
     </div>

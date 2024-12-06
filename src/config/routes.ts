@@ -3,4 +3,6 @@ export const routes = {
   login: () => '/login',
   manageCommand: () => '/command',
   managePartner: () => '/partner',
+  addLocation: () => '/location',
+  deleteGuide: () => '/delete_guide',
 };

@@ -8,10 +8,12 @@ import { AuthGuard } from '@components/AuthGuard';
 import { Login } from '@modules/auth/pages/Login';
 import { AuthLayout } from '@modules/auth/components/AuthLayout';
 import NewGuideForm from '@modules/home/components/MainSection/NewGuideForm';
-import { useAppSelector } from './store';
-import { createTheme } from './theme';
 import { TeamPage } from '@modules/team';
 import { PartnersPage } from '@modules/partners';
+import { LocationPage } from '@modules/location';
+import { DeleteGuidePage } from '@modules/deleteGuide';
+import { createTheme } from './theme';
+import { useAppSelector } from './store';
 
 export const App = () => {
   const mode = useAppSelector(selectMode);
@@ -33,6 +35,11 @@ export const App = () => {
               <Route path={routes.newGuide()} element={<NewGuideForm />} />
               <Route path={routes.manageCommand()} element={<TeamPage />} />
               <Route path={routes.managePartner()} element={<PartnersPage />} />
+              <Route path={routes.addLocation()} element={<LocationPage />} />
+              <Route
+                path={routes.deleteGuide()}
+                element={<DeleteGuidePage />}
+              />
             </Route>
           </Route>
         </Routes>

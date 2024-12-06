@@ -8,6 +8,7 @@ export const addTagTypes = [
   'partner',
   'team-member',
   'location',
+  'guide-comment',
 ] as const;
 const injectedRtkApi = api
   .enhanceEndpoints({
@@ -283,6 +284,52 @@ const injectedRtkApi = api
         }),
         invalidatesTags: ['location'],
       }),
+      createGuideComment: build.mutation<
+        CreateGuideCommentApiResponse,
+        CreateGuideCommentApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/guide-comments`,
+          method: 'POST',
+          body: queryArg.createGuideCommentDto,
+        }),
+        invalidatesTags: ['guide-comment'],
+      }),
+      getGuideComments: build.query<
+        GetGuideCommentsApiResponse,
+        GetGuideCommentsApiArg
+      >({
+        query: () => ({ url: `/guide-comments` }),
+        providesTags: ['guide-comment'],
+      }),
+      getGuideComment: build.query<
+        GetGuideCommentApiResponse,
+        GetGuideCommentApiArg
+      >({
+        query: (queryArg) => ({ url: `/guide-comments/${queryArg.id}` }),
+        providesTags: ['guide-comment'],
+      }),
+      updateGuideComment: build.mutation<
+        UpdateGuideCommentApiResponse,
+        UpdateGuideCommentApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/guide-comments/${queryArg.id}`,
+          method: 'PUT',
+          body: queryArg.updateGuideCommentDto,
+        }),
+        invalidatesTags: ['guide-comment'],
+      }),
+      deleteGuideComment: build.mutation<
+        DeleteGuideCommentApiResponse,
+        DeleteGuideCommentApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/guide-comments/${queryArg.id}`,
+          method: 'DELETE',
+        }),
+        invalidatesTags: ['guide-comment'],
+      }),
     }),
     overrideExisting: false,
   });
@@ -415,6 +462,25 @@ export type DeleteLocationApiResponse = /** status 200  */ void;
 export type DeleteLocationApiArg = {
   id: string;
 };
+export type CreateGuideCommentApiResponse = /** status 200  */ GuideCommentDto;
+export type CreateGuideCommentApiArg = {
+  createGuideCommentDto: CreateGuideCommentDto;
+};
+export type GetGuideCommentsApiResponse = /** status 200  */ GuideCommentDto[];
+export type GetGuideCommentsApiArg = void;
+export type GetGuideCommentApiResponse = /** status 200  */ GuideCommentDto;
+export type GetGuideCommentApiArg = {
+  id: string;
+};
+export type UpdateGuideCommentApiResponse = /** status 200  */ void;
+export type UpdateGuideCommentApiArg = {
+  id: string;
+  updateGuideCommentDto: UpdateGuideCommentDto;
+};
+export type DeleteGuideCommentApiResponse = /** status 200  */ void;
+export type DeleteGuideCommentApiArg = {
+  id: string;
+};
 export type UserDto = {
   /** The id of the user */
   id: string;
@@ -477,8 +543,10 @@ export type GuideDto = {
   title: string;
   description: string;
   date: string;
-  imageUrl: string;
+  exampleImages: string[];
   videoUrl: string;
+  author: UserDto;
+  schemas: string[];
 };
 export type CreateGuideStepDto = {
   name: string;
@@ -489,10 +557,11 @@ export type CreateGuideStepDto = {
 export type CreateGuideDto = {
   title: string;
   description: string;
-  imageUrl: string;
+  exampleImages: string[];
   videoUrl: string;
   categories: string[];
   steps: CreateGuideStepDto[];
+  schemas: string[];
 };
 export type GuideStepDto = {
   id: string;
@@ -501,21 +570,30 @@ export type GuideStepDto = {
   image: string;
   order: number;
 };
+export type GuideCommentDto = {
+  id: string;
+  text: string;
+  author: string;
+};
 export type GuideDetailsDto = {
   id: string;
   title: string;
   description: string;
   date: string;
-  imageUrl: string;
+  exampleImages: string[];
+  schemas: string[];
   videoUrl: string;
   steps: GuideStepDto[];
+  author: UserDto;
+  comments: GuideCommentDto[];
 };
 export type UpdateGuideDto = {
   title?: string;
   description?: string;
-  imageUrl?: string;
+  exampleImages?: string[];
   videoUrl?: string;
   categories?: string[];
+  schemas: string[];
 };
 export type GuideCategoryDto = {
   id: string;
@@ -581,6 +659,13 @@ export type UpdateLocationDto = {
   contactFullName?: string;
   contactPhoneNumber?: string;
 };
+export type CreateGuideCommentDto = {
+  text: string;
+  guideId: string;
+};
+export type UpdateGuideCommentDto = {
+  text?: string;
+};
 export const {
   useSignupMutation,
   useLoginMutation,
@@ -616,4 +701,9 @@ export const {
   useGetLocationQuery,
   useUpdateLocationMutation,
   useDeleteLocationMutation,
+  useCreateGuideCommentMutation,
+  useGetGuideCommentsQuery,
+  useGetGuideCommentQuery,
+  useUpdateGuideCommentMutation,
+  useDeleteGuideCommentMutation,
 } = injectedRtkApi;

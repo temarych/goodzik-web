@@ -6,6 +6,27 @@ import { BaseGuideSettingsType } from './baseGuideSettingsType';
 
 //! add adding video url for entire guide
 
+// const saveFileInGoogleDrive = async (file: File, photoAccessKey: string) => {
+//     const fileId = await axios
+//         .post(
+//             'https://www.googleapis.com/upload/drive/v3/files?uploadType=media',
+//             file,
+//             {
+//                 headers: {
+//                     'Content-Type': file.type,
+//                     'Content-Length': file.size,
+//                     Authorization: 'Bearer ' + photoAccessKey,
+//                 },
+//             }
+//         )
+//         .then((res) => res.data.id);
+
+//     return fileId;
+// };
+
+// GOOGLE_CLIENT_ID=49106450808-50alt1csn009cgonnnkfm678elhi96qn.apps.googleusercontent.com
+// GOOGLE_CLIENT_SECRET=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
+
 const NewGuideForm = () => {
   const [stepElements, setStepElements] = useState<JSX.Element[]>([]);
   const [guideTexts, setGuideTexts] = useState<string[]>([]);
@@ -48,10 +69,6 @@ const NewGuideForm = () => {
   };
 
   const validateFieldData = () => {
-    console.log(baseGuideSettings);
-    console.log(guideTexts);
-    console.log(guidePhotos);
-
     if (!baseGuideSettings?.title || !baseGuideSettings?.description) {
       setError('Не всі базові налаштування не вказані');
     } else if (guideTexts.some((text) => !text)) {

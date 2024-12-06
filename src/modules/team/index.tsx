@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
-import { useCreateTeamMemberMutation } from '@store/api';
 import { useForm } from 'react-hook-form';
+import { useCreateTeamMemberMutation } from '@store/api';
 
 export const TeamPage = () => {
   const [createTeamMember] = useCreateTeamMemberMutation();
@@ -18,12 +18,14 @@ export const TeamPage = () => {
           position: data.position,
         },
       });
+
+      reset();
     } catch (error) {
       console.error('Failed to create team member:', error);
     }
   };
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       fullName: '',
       imageUrl: '',
@@ -35,46 +37,46 @@ export const TeamPage = () => {
     <div>
       <p className="text-xl font-bold mb-4">Новий член команди:</p>
 
-      <form className="flex flex-col gap-4" onClick={handleSubmit(onSubmit)}>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-row gap-4 max-w-md">
           <label htmlFor="fullName" className="w-24">
-            Full Name
+            Повне ім'я
           </label>
           <input
             id="fullName"
             type="text"
-            placeholder="Full Name"
+            placeholder="Повне ім'я"
             className="px-2 border-2 border-gray-400/80 rounded-lg"
             {...register('fullName')}
           />
         </div>
         <div className="flex flex-row gap-4 max-w-md">
           <label htmlFor="imageUrl" className="w-24">
-            Image URL
+            URL-адреса зображення
           </label>
           <input
             id="imageUrl"
             type="text"
-            placeholder="Image URL"
+            placeholder="URL-адреса"
             className="px-2 border-2 border-gray-400/80 rounded-lg"
             {...register('imageUrl')}
           />
         </div>
         <div className="flex flex-row gap-4 max-w-md">
           <label htmlFor="position" className="w-24">
-            Position
+            Розташування
           </label>
           <input
             id="position"
             type="text"
-            placeholder="Position"
+            placeholder="Розташування"
             className="px-2 border-2 border-gray-400/80 rounded-lg"
             {...register('position')}
           />
         </div>
         <div>
           <Button variant="contained" type="submit">
-            Create
+            Зберегти
           </Button>
         </div>
       </form>

@@ -41,7 +41,7 @@ export const Login = () => {
     (data: LoginFormData) => {
       login({ loginRequestDto: data })
         .unwrap()
-        .then(() => navigate(routes.home()))
+        .then(() => navigate(routes.newGuide()))
         .catch(handleError);
     },
     [handleError, login, navigate],

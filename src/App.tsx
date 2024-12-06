@@ -29,8 +29,8 @@ export const App = () => {
           <Route element={<AuthGuard />}>
             <Route element={<MainLayout />}>
               <Route path={routes.newGuide()} element={<NewGuideForm />} />
-              {/* <Route path={routes.manageCommand()} element={<Home />} /> */}
-              {/* <Route path={routes.managePartner()} element={<Home />} /> */}
+              <Route path={routes.manageCommand()} element={<NewGuideForm />} />
+              <Route path={routes.managePartner()} element={<NewGuideForm />} />
             </Route>
           </Route>
         </Routes>

@@ -1,8 +1,8 @@
 import { MainContainer } from '@components/MainContainer';
-import { Banner } from './components/Banner';
+import MainSection from './components/MainSection';
 
 export const Home = () => (
   <MainContainer>
-    <Banner />
+    <MainSection />
   </MainContainer>
 );

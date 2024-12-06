@@ -5,10 +5,9 @@ import { routes } from '@config/routes';
 import { selectMode } from '@store/features/theme';
 import { MainLayout } from '@components/MainLayout';
 import { AuthGuard } from '@components/AuthGuard';
-import { Home } from '@modules/home';
 import { Login } from '@modules/auth/pages/Login';
-import { Signup } from '@modules/auth/pages/Signup';
 import { AuthLayout } from '@modules/auth/components/AuthLayout';
+import NewGuideForm from '@modules/home/components/MainSection/NewGuideForm';
 import { useAppSelector } from './store';
 import { createTheme } from './theme';
 
@@ -25,12 +24,13 @@ export const App = () => {
         <Routes>
           <Route element={<AuthLayout />}>
             <Route path={routes.login()} element={<Login />} />
-            <Route path={routes.signup()} element={<Signup />} />
           </Route>
 
           <Route element={<AuthGuard />}>
             <Route element={<MainLayout />}>
-              <Route path={routes.home()} element={<Home />} />
+              <Route path={routes.newGuide()} element={<NewGuideForm />} />
+              {/* <Route path={routes.manageCommand()} element={<Home />} /> */}
+              {/* <Route path={routes.managePartner()} element={<Home />} /> */}
             </Route>
           </Route>
         </Routes>

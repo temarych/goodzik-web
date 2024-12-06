@@ -31,15 +31,10 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) =>
-    builder
-      .addMatcher(api.endpoints.login.matchFulfilled, (state, action) => {
-        state.accessToken = action.payload.accessToken;
-        state.user = action.payload.user;
-      })
-      .addMatcher(api.endpoints.signup.matchFulfilled, (state, action) => {
-        state.accessToken = action.payload.accessToken;
-        state.user = action.payload.user;
-      }),
+    builder.addMatcher(api.endpoints.login.matchFulfilled, (state, action) => {
+      state.accessToken = action.payload.accessToken;
+      state.user = action.payload.user;
+    }),
 });
 
 export const { authenticate, logout } = authSlice.actions;

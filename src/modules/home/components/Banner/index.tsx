@@ -2,7 +2,7 @@ import { Stack, styled, Typography } from '@mui/material';
 
 export const Banner = () => (
   <Banner.Wrapper>
-    <Banner.Logo src="/vite.svg" />
+    <Banner.Logo src="/logo.svg" />
     <Stack alignItems="center" spacing={1}>
       <Typography variant="h5" textAlign="center">
         Goodzik

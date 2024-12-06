@@ -1,3 +1,4 @@
+import { logout } from '@store/features/auth';
 import { emptyApi as api } from './emptyApi';
 export const addTagTypes = ['user'] as const;
 const injectedRtkApi = api
@@ -6,14 +7,6 @@ const injectedRtkApi = api
   })
   .injectEndpoints({
     endpoints: (build) => ({
-      signup: build.mutation<SignupApiResponse, SignupApiArg>({
-        query: (queryArg) => ({
-          url: `/signup`,
-          method: 'POST',
-          body: queryArg.signupRequestDto,
-        }),
-        invalidatesTags: ['user'],
-      }),
       login: build.mutation<LoginApiResponse, LoginApiArg>({
         query: (queryArg) => ({
           url: `/login`,
@@ -21,6 +14,17 @@ const injectedRtkApi = api
           body: queryArg.loginRequestDto,
         }),
         invalidatesTags: ['user'],
+        onQueryStarted: async (arg, { queryFulfilled, dispatch }) => {
+          try {
+            const { data } = await queryFulfilled;
+            if (data.user.role !== 'admin') {
+              console.error('Unauthorized role');
+              dispatch(logout());
+            }
+          } catch (error) {
+            console.error('Error during login:', error);
+          }
+        },
       }),
       getMe: build.query<GetMeApiResponse, GetMeApiArg>({
         query: () => ({ url: `/me` }),
@@ -30,10 +34,7 @@ const injectedRtkApi = api
     overrideExisting: false,
   });
 export { injectedRtkApi as baseApi };
-export type SignupApiResponse = /** status 200  */ SignupResponseDto;
-export type SignupApiArg = {
-  signupRequestDto: SignupRequestDto;
-};
+
 export type LoginApiResponse = /** status 200  */ LoginResponseDto;
 export type LoginApiArg = {
   loginRequestDto: LoginRequestDto;
@@ -44,11 +45,11 @@ export type UserDto = {
   /** The id of the user */
   id: string;
   /** The name of the user */
+  userName: string;
+  /** The name of the user */
   email: string;
-};
-export type SignupResponseDto = {
-  accessToken: string;
-  user: UserDto;
+  /** The role of the user */
+  role: string;
 };
 export type ApiErrorDto = {
   /** The error code */
@@ -58,10 +59,6 @@ export type ApiErrorDto = {
   /** Additional details about the error */
   details?: object;
 };
-export type SignupRequestDto = {
-  email: string;
-  password: string;
-};
 export type LoginResponseDto = {
   accessToken: string;
   user: UserDto;
@@ -70,5 +67,4 @@ export type LoginRequestDto = {
   email: string;
   password: string;
 };
-export const { useSignupMutation, useLoginMutation, useGetMeQuery } =
-  injectedRtkApi;
+export const { useLoginMutation, useGetMeQuery } = injectedRtkApi;

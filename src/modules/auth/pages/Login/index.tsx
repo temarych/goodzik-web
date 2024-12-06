@@ -1,4 +1,4 @@
-import { Divider, Stack, TextField, Typography } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback } from 'react';
@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { routes } from '@config/routes';
 import { ApiErrorDto, useLoginMutation } from '@store/api';
-import { Link } from '@components/Link';
 import { Button } from '@components/Button';
 import { PasswordField } from '@components/PasswordField';
 import { AuthContainer } from '@modules/auth/components/AuthContainer';
@@ -75,21 +74,18 @@ export const Login = () => {
           >
             Log in
           </Button>
-          <Typography variant="body1" textAlign="center">
-            Don't have an account? <Link to="/signup">Sign up</Link>
-          </Typography>
         </Stack>
 
-        <Divider>OR</Divider>
+        {/* <Divider>OR</Divider> */}
 
-        <Stack spacing={2}>
+        {/* <Stack spacing={2}>
           <Button variant="outlined" size="large">
             Continue with Google
           </Button>
           <Button variant="outlined" size="large">
             Continue with Facebook
           </Button>
-        </Stack>
+        </Stack> */}
       </AuthContainer>
     </form>
   );

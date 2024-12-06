@@ -8,7 +8,6 @@ import { Button } from '@components/Button';
 
 export const Header = () => {
   const dispatch = useAppDispatch();
-
   const mode = useAppSelector(selectMode);
 
   return (
@@ -17,7 +16,7 @@ export const Header = () => {
       <Header.Wrapper>
         <Header.Container>
           <Stack direction="row" alignItems="center" spacing={1}>
-            <Header.Logo src="/vite.svg" />
+            <Header.Logo src="/logo.svg" />
             <Typography variant="h6">Goodzik</Typography>
           </Stack>
 

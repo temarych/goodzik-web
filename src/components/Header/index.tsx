@@ -17,7 +17,7 @@ export const Header = () => {
         <Header.Container>
           <Stack direction="row" alignItems="center" spacing={1}>
             <Header.Logo src="/logo.svg" />
-            <Typography variant="h6">Goodzik</Typography>
+            <Typography variant="h6">GoodSewing divisionzik</Typography>
           </Stack>
 
           <Stack direction="row" alignItems="center" spacing={1}>
